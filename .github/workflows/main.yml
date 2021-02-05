@@ -1,0 +1,33 @@
+name: AWS Apps
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:3.13.1
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Testing Build Commands
+        run: |
+          ls
+          echo "Building ..."
+  cd:
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:3.13.1
+    needs: ci
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Testing Deploy Commands
+        run: |
+          echo "Deploying ..."
