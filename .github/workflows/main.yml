@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  main:
+  docker-build:
     runs-on: ubuntu-latest
     steps:
       -
@@ -27,6 +27,7 @@ jobs:
       -
         name: Build and push
         id: docker_build
+        uses: actions/checkout@v1
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -41,7 +42,8 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     container:
-      image: alpine:3.13.1
+      image: altimit/plz-builder:1.0.0
+    needs: docker-build
 
     steps:
       - uses: actions/checkout@v1
@@ -52,7 +54,7 @@ jobs:
   cd:
     runs-on: ubuntu-latest
     container:
-      image: alpine:3.13.1
+      image: altimit/plz-builder:1.0.0
     needs: ci
 
     steps:
