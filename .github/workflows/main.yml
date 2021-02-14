@@ -30,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./build-container/Dockerfile
+          file: ./Dockerfile
           push: true
           tags: altimit/plz-builder:1.0.0
       -
